@@ -16,8 +16,16 @@ Example:
 
 ### Files
 
-1. Dictionary file: maps word to id.
-2. Word Embedding File: pre-trained embedding
+To construct the required files, first convert your data into the format: 
+> `user_id <tab> item_id <tab> rating <tab> review`
+
+Separate out the training data from validation & test -- typically a randomized 80:10:10 split.
+
+1. Dictionary file: maps word to id. To construct it, see item 2 below.
+2. Word Embedding File: pre-trained embedding. To construct the word embedding 
+and the dictionary, you can pre-train on the training data using the auxiliary code at: 
+`DatasetUtils/Word2VecBasicGZ.py`. This implementation uses TensorFlow's distribution 
+of Word2Vec. The code is self explanatory. 
 3. Epoch files: In every epoch, for each (user,item) pair in the training data, 
 we need to construct their text representations using the reviews that the user has written 
 previously and reviews that others wrote for the item previously. Constructing this while 
