@@ -7,6 +7,7 @@ Rose Catherine and William Cohen. _In Proc. 11th ACM Conference on Recommender S
 If you use code or data from this repository, please cite the above paper.
 
 ### Running the code
+(for TransNet-Ext, scroll further down)
 
 `python TNetMain.py batch_size review_max_len embedding_size learning_rate max_epoch dropout_keep_prob 'path/to/word_emb.pkl'  'path/to/train_epochs'  'path/to/val_epochs'  'path/to/test_epochs'  num_filters  output_embedding_size  'path/to/dict.pkl'  'path/to/training_data' num_transform_layers 'path/to/save/model' `
 
@@ -90,3 +91,19 @@ However, it reaches the best at epoch 16 (108000th iteration):
    > Testing MSE Full: Val	16 108000 	1.63820302245
 
    > Testing MSE Full: Test	16 108000 	1.63276760098
+
+
+### Running the TransNet-Ext code
+
+The command to run the TransNet-Ext learning is similar to that of the TransNet model, except, you need to specify a user and item shortlist for which an embedding needs to be learned. 
+
+`python TNetExtMain.py batch_size review_max_len embedding_size learning_rate max_epoch dropout_keep_prob 'path/to/word_emb.pkl'  'path/to/train_epochs'  'path/to/val_epochs'  'path/to/test_epochs'  num_filters  output_embedding_size  'path/to/dict.pkl'  'path/to/usershortlist.txt' 'path/to/itemshortlist.txt' 'path/to/training_data' `
+
+Example:
+
+`python TNetExtMain.py 500 1000 64 0.002 30 0.5 'data/yelp_2017/word_emb.pkl' 'data/yelp_2017/rand1/train_epochs' 'data/yelp_2017/rand1/val_epochs'  'data/yelp_2017/rand1/test_epochs'  100  50  'data/yelp_2017/dict.pkl'  'data/yelp_2017/usershortlist.txt' 'data/yelp_2017/bizshortlist.txt' 'data/yelp_2017/rand1/train_INT.gz'  `
+
+The shortlists are users and items that appear in the training data. Users and items that appear in the validation/test, but not in train, 
+will be mapped to id 0 and a random embedding will be used. 
+
+Reading the output is same as that of the TransNet output file.
