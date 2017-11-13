@@ -6,6 +6,9 @@ Rose Catherine and William Cohen. _In Proc. 11th ACM Conference on Recommender S
 
 If you use code or data from this repository, please cite the above paper.
 
+
+FAQ is here:  [https://github.com/rosecatherinek/TransNets/wiki/FAQ-for-TransNets](https://github.com/rosecatherinek/TransNets/wiki/FAQ-for-TransNets)
+
 ### Running the code
 (for TransNet-Ext, scroll further down)
 
