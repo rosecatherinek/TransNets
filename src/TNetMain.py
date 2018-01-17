@@ -215,6 +215,8 @@ if __name__ == '__main__':
     dict_file = 'data/yelp_2017/dict.pkl' #word -> id
     traindata = 'data/yelp_2017/rand1/train_INT.gz' #UserBizRatingRev format: gives userA,bizB -> revAB
     transLayers = 2
+    FMk = 8
+    filtersizes = [3] #t = 3
     savedir = 'tnet_models/'
     
     
@@ -234,11 +236,14 @@ if __name__ == '__main__':
         dict_file = sys.argv[13] # word -> id mapping file
         traindata = sys.argv[14]
         transLayers = int(sys.argv[15])
-        savedir = sys.argv[16]
+        FMk = int(sys.argv[16])
+        fs = int(sys.argv[17])
+        filtersizes = [fs]
+        savedir = sys.argv[18]
         
         
-    filtersizes = [3] #t = 3
-    FMk = 8
+    
+    
 
     mfp = TNetModel.MFParams(
         batch_size = batchsize,

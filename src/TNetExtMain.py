@@ -196,7 +196,8 @@ if __name__ == '__main__':
     userfile = '/usr1/public/rkanjira/RecoNN/sl50/usershortlist.txt' #use only train ids
     itemfile = '/usr1/public/rkanjira/RecoNN/sl50/bizshortlist.txt' #use only train ids
     traindata = '/Users/roseck/Documents/RecoNNData/sl50/x_INT_Train.txt' #UBRR format
-    
+    FMk = 8
+    filtersizes = [3] #t = 3
     
     if len(sys.argv) > 1:
         batchsize = int(sys.argv[1])  #100
@@ -215,10 +216,11 @@ if __name__ == '__main__':
         userfile = sys.argv[14]
         itemfile = sys.argv[15]
         traindata = sys.argv[16]
+        FMk = int(sys.argv[17])
+        fs = int(sys.argv[18])
+        filtersizes = [fs]
         
         
-    filtersizes = [3] #t = 3
-    FMk = 8
 
     mfp = TNetExtModel.MFParams(
         batch_size = batchsize,

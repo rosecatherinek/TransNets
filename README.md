@@ -12,11 +12,11 @@ FAQ is here:  [https://github.com/rosecatherinek/TransNets/wiki/FAQ-for-TransNet
 ### Running the code
 (for TransNet-Ext, scroll further down)
 
-`python TNetMain.py batch_size review_max_len embedding_size learning_rate max_epoch dropout_keep_prob 'path/to/word_emb.pkl'  'path/to/train_epochs'  'path/to/val_epochs'  'path/to/test_epochs'  num_filters  output_embedding_size  'path/to/dict.pkl'  'path/to/training_data' num_transform_layers 'path/to/save/model' `
+`python TNetMain.py batch_size review_max_len embedding_size learning_rate max_epoch dropout_keep_prob 'path/to/word_emb.pkl'  'path/to/train_epochs'  'path/to/val_epochs'  'path/to/test_epochs'  num_filters  output_embedding_size  'path/to/dict.pkl'  'path/to/training_data' num_transform_layers FMk window_size 'path/to/save/model' `
 
 Example:
 
-`python TNetMain.py 500 1000 64 0.002 30 0.5 'data/yelp_2017/word_emb.pkl' 'data/yelp_2017/rand1/train_epochs' 'data/yelp_2017/rand1/val_epochs'  'data/yelp_2017/rand1/test_epochs'  100  50  'data/yelp_2017/dict.pkl'  'data/yelp_2017/rand1/train_INT.gz' 2 'tnet_models/'  `
+`python TNetMain.py 500 1000 64 0.002 30 0.5 'data/yelp_2017/word_emb.pkl' 'data/yelp_2017/rand1/train_epochs' 'data/yelp_2017/rand1/val_epochs'  'data/yelp_2017/rand1/test_epochs'  100  50  'data/yelp_2017/dict.pkl'  'data/yelp_2017/rand1/train_INT.gz' 2 8 3 'tnet_models/'  `
 
 ### Files
 
@@ -100,11 +100,11 @@ However, it reaches the best at epoch 16 (108000th iteration):
 
 The command to run the TransNet-Ext learning is similar to that of the TransNet model, except, you need to specify a user and item shortlist for which an embedding needs to be learned. 
 
-`python TNetExtMain.py batch_size review_max_len embedding_size learning_rate max_epoch dropout_keep_prob 'path/to/word_emb.pkl'  'path/to/train_epochs'  'path/to/val_epochs'  'path/to/test_epochs'  num_filters  output_embedding_size  'path/to/dict.pkl'  'path/to/usershortlist.txt' 'path/to/itemshortlist.txt' 'path/to/training_data' `
+`python TNetExtMain.py batch_size review_max_len embedding_size learning_rate max_epoch dropout_keep_prob 'path/to/word_emb.pkl'  'path/to/train_epochs'  'path/to/val_epochs'  'path/to/test_epochs'  num_filters  output_embedding_size  'path/to/dict.pkl'  'path/to/usershortlist.txt' 'path/to/itemshortlist.txt' 'path/to/training_data' FMk window_size `
 
 Example:
 
-`python TNetExtMain.py 500 1000 64 0.002 30 0.5 'data/yelp_2017/word_emb.pkl' 'data/yelp_2017/rand1/train_epochs' 'data/yelp_2017/rand1/val_epochs'  'data/yelp_2017/rand1/test_epochs'  100  50  'data/yelp_2017/dict.pkl'  'data/yelp_2017/usershortlist.txt' 'data/yelp_2017/bizshortlist.txt' 'data/yelp_2017/rand1/train_INT.gz'  `
+`python TNetExtMain.py 500 1000 64 0.002 30 0.5 'data/yelp_2017/word_emb.pkl' 'data/yelp_2017/rand1/train_epochs' 'data/yelp_2017/rand1/val_epochs'  'data/yelp_2017/rand1/test_epochs'  100  50  'data/yelp_2017/dict.pkl'  'data/yelp_2017/usershortlist.txt' 'data/yelp_2017/bizshortlist.txt' 'data/yelp_2017/rand1/train_INT.gz' 8 3 `
 
 The shortlists are users and items that appear in the training data. Users and items that appear in the validation/test, but not in train, 
 will be mapped to id 0 and a random embedding will be used. 
