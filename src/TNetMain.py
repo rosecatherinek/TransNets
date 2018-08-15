@@ -20,6 +20,8 @@ def train(dcmf, savedir):
     cfg.gpu_options.allow_growth = True
     
     sess = tf.Session(config=cfg)
+    
+    min_MSE = float("inf")
 
 
     #read the embedding
@@ -94,26 +96,27 @@ def train(dcmf, savedir):
             print 'Step ', step, ' full: ', full_rmse
             
             if step % 500 == 0:
-                save, mse = test_valtest(sess, dcmf, epoch, step)
+                mse = test_valtest(sess, dcmf, epoch, step)
             
-                if save: 
+                if mse < min_MSE: 
                     #save the current model
+                    min_MSE = mse
                     save_model(sess, dcmf, mse, savedir)
                 
             
         
         print 'End of Epoch Testing'
-        save, mse = test_valtest(sess, dcmf, epoch, step)
-        if save: 
+        mse = test_valtest(sess, dcmf, epoch, step)
+        if mse < min_MSE: 
             #save the current model
             save_model(sess, dcmf, mse, savedir)
         
         sys.stdout.flush()
         
 def save_model(sess, dcmf, mse, savedir):
-    print 'Saving the current model'
     start = time.time()
-    file_name = savedir + str(round(mse,2)).replace('.', '_') + '_model.ckpt'
+    file_name = savedir + str(round(mse,6)).replace('.', '_') + '_model.ckpt'
+    print 'Saving the current model at: ' + file_name
     dcmf.save_model(sess, file_name)
     end = time.time()
     print 'Model saved in ', str(end - start), ' sec'
@@ -145,11 +148,8 @@ def test_valtest(sess, dcmf, epoch, step):
     print 'Testing MSE Other: Test\t', epoch, step, '\t', oth_mse_test
     print 'Testing MSE Full: Test\t', epoch, step, '\t', full_mse_test
     
-    if full_mse_val < 1.7:  
-        #TODO: need to find the saving criteria from the previous MSE
-        return True, full_mse_val #save this model
-    else:
-        return False, full_mse_val
+    return full_mse_val 
+
     
 def test(sess, dcmf, batch_iter):
     '''test the performance using the iterator 
